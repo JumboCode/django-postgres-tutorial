@@ -28,10 +28,18 @@ This is all that's needed to set up local development for postgres. Now we need 
  
 The last thing then we need to do, is set an environment variable that lets django know that we want to use the "dev"elopment settings in this environment. We do this with the command `export DJANGO_SETTINGS_MODULE=django_postgres_example.settings.dev`. 
 
+#### Further Resources
+
+* [Optimizing Postgres Configuration](https://docs.djangoproject.com/en/2.1/ref/databases/#optimizing-postgresql-s-configuration)
+* [The Library that drives the connection between django to postgres](http://initd.org/psycopg/docs/install.html)
+* [Good Overview of Relational Database Fundamental Concepts](https://www.postgresql.org/docs/8.4/static/tutorial-concepts.html)
+* [How to Create a Data Schema in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-table.html)
+* [How to insert new data in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-populate.html)
+
 
 ### Environments and Settings
 
-The local development environment is only of many different environments that your code can run in. I find it useful to basic create a seperate file in the settings directory for each environment that your code many run in.
+The local development environment is only of many different environments that your code can run in. I find it useful to create a seperate file in the settings directory for each environment that your code many run in.
 
 * `settings/dev.py` specifies your application settings for a local development environment. 
 * `settings/prod.py` specifies your application settings for a production environment (the service your real users will using) 
@@ -61,6 +69,29 @@ Models.py ------> Django's ObjectRelatedMapper ---> Generated Postgres Queries/S
 Now we can start the server, but how do we know if it's in good shape? In `/api/tests/tests.py` we've defined a couple tests that our api should pass for correct functionality. We can make sure those currently pass by running them locally `python manage.py test api`. 
 
 
-#### Lets Move to Production
+### Lets Move to Production
 
 Now that we've established that our simple api is working properly in a local environment, let's put it on some production machines.  
+
+Assuming you already have a [heroku](https://dashboard.heroku.com). Create
+a new app with whatever name for the tutorial you want. 
+
+# Image Here
+
+Then, link the repository, so that every push to your master branch on github deploys the most up to date version seemlessly on Heroku.
+
+# Image Here
+
+#### Connect Database and Set Production Environment 
+
+If we try to manually deploy though (we don't have code to commit yet), we run into issues. That's because Heroku has different requirements for running a django application in their environment. In order for Django to play nicely on heroku you need.
+
+1. A python buildpack installed. This tells heroku that we are building a python application so it knows to look for certain files like 'requirements.txt'
+
+
+2. A Procfile, which tells heroku 
+
+##### Notes and Other Resources
+
+* https://devcenter.heroku.com/articles/django-app-configuration
+* https://devcenter.heroku.com/articles/python-concurrency-and-database-connections
