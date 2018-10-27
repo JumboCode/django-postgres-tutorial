@@ -1,7 +1,11 @@
 # Django + Postgres + Heroku + Travis Project Example
 
-This django-tutorial respository aims to provide a nice template for developing a django-based API that feeds into a postgress database. After looking at the code and reading the walkthrough tutorial, hopefully you will feel more comfortable with running a django application in a variety of environments, in an integrated pipeline. 
+This django-tutorial aims to provide a nice template for developing a django-based API that feeds into a postgres database. After looking at the code and reading the walkthrough tutorial, hopefully you will feel more comfortable with running a django application in a variety of environments, in an integrated pipeline. 
+
 ### Virtual Environment 
+
+Assumes you have python3...
+
 1. Fork the repo on github to get a copy of the respository, and then cloned that newly forked repo with `git clone`
 2. Create a virtual environment with the  `python -m venv .venv` .This will a sandboxed environment called "venv" that helps with controlling dependencies.
 3. Activate the environment with `source env/bin/activate`
@@ -15,6 +19,7 @@ Since we want to use postgres as our production database, we should make sure th
 A point can be made that once a production database is established, it's easier to develop locally, but make external requests to the production database. While this might make sense for a bit, there will come a point when the production database is sacred, and the threat of potentially wrecking it in some fashion with local development is too great. Working locally with postgres gives a nice sandboxed database that be destroyed and recreated at will. 
 
 ### To Setup up Postgres Locally on a Mac
+
 1. Install [homebrew](https://brew.sh/) if it's not already on your Mac.
 2. Update brew with `brew update`.
 3. Install postgres with `brew install postgres`.
