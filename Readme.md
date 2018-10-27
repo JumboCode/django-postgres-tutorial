@@ -33,7 +33,7 @@ The last thing then we need to do, is set an environment variable that lets djan
 * [Optimizing Postgres Configuration](https://docs.djangoproject.com/en/2.1/ref/databases/#optimizing-postgresql-s-configuration)
 * [The Library that drives the connection between django to postgres](http://initd.org/psycopg/docs/install.html)
 * [Good Overview of Relational Database Fundamental Concepts](https://www.postgresql.org/docs/8.4/static/tutorial-concepts.html)
-* [How to Create a Data Schema in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-table.html)
+* [How to Create a Data Schema in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-table.html)__
 * [How to insert new data in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-populate.html)
 
 
@@ -61,6 +61,7 @@ If everything has gone according to plan, only 3 steps are need to needed to run
 Anytime there are changes to `models.py`, running steps 1-3 will try to seemlessly translate those changes to your connected database. 
 
 At this point, it might be worth clarifying Django's relationship with the postgress database. Basically django sits as a middleware translator between your python code in models.py and the raw, postgres queries that actually do the barebones work. Similar to how we created a user and a database with the postgres prompt, you can also create other datastructures and relationships with postgres queries. What django does is simply package that same functionality into cleaner "model" python code.
+
 Your Code in 
 Models.py ------> Django's ObjectRelatedMapper ---> Generated Postgres Queries/Statements --->  The Raw Data and Schema.
 
@@ -69,29 +70,50 @@ Models.py ------> Django's ObjectRelatedMapper ---> Generated Postgres Queries/S
 Now we can start the server, but how do we know if it's in good shape? In `/api/tests/tests.py` we've defined a couple tests that our api should pass for correct functionality. We can make sure those currently pass by running them locally `python manage.py test api`. 
 
 
-### Lets Move to Production
+### Let's Move to Production!
 
 Now that we've established that our simple api is working properly in a local environment, let's put it on some production machines.  
 
 Assuming you already have a [heroku](https://dashboard.heroku.com). Create
 a new app with whatever name for the tutorial you want. 
 
-# Image Here
+![create-app](./screenshots/heroku_create_app1.png)
 
 Then, link the repository, so that every push to your master branch on github deploys the most up to date version seemlessly on Heroku.
 
-# Image Here
+![link_repo](./screenshots/heroku_link_continuous_deployment.png)
+
+If github permissions are configured properly, you should be able to easily find your forked repo on github and link it to heroku. ![heroku-search-repo](./screenshots/link_heroku_to_github1.png) ![herok-github-linked](./screenshots/link_heroku_to_github2.png)
 
 #### Connect Database and Set Production Environment 
 
 If we try to manually deploy though (we don't have code to commit yet), we run into issues. 
 
-That's because Heroku has different requirements for running a django application in their environment. In order for Django to play nicely on heroku you need.
+That's because Heroku has different requirements for running a django application in their environment. In order for Django to play nicely in a heroku, production environment you need.
 
-1. A python buildpack installed. This tells heroku that we are building a python application so it knows to look for certain files like 'requirements.txt'
+1. A python buildpack installed. This tells heroku that we are building a python application so it knows to look for certain files like 'requirements.txt'. Install a python buildpack with the following steps: 
+    1. Go to your app's 'settings' table and scroll down to the buildpack section. ![add-buildpack](./screenshots/add_buildback1.png)
+    2. Select the official python supported pack and save the changes, you should now see the buildback added. ![python-buildpack](./screenshots/heroku_add_buildpack2.png) ![saved_buildpack](./screenshots/Heroku_buildpack_3.png)
 2. A Procfile, which tells heroku what command to run your application.
-    * Our procfile is the line `web: gunicorn django_postgres_example.wsgi` The `web:` tells heroku it's a web application. The web application is served by the webserver (the thing that actually runs your application) package `gunicorn` and gunicorn looks for our applications `.wsgi` file
+    * Our procfile is just the line `web: gunicorn django_postgres_example.wsgi` The `web:` tells heroku it's a web application. The web application is served by the webserver (the thing that actually runs your application) package `gunicorn` and gunicorn looks for our applications `.wsgi` file
 3. A `runtime.txt` file that specifies the python version we want to use in production.
+
+We also need to configure and connect a production database that isn't just running on our local machine. Thankfully Heroku comes with postgres available as an addon.
+
+We simply navigate to our app's resource tab, search for postgres, and add it. ![heroku_connect_postgres](./screenshots/heroku_connect_postgres.png)
+
+Not only will the add-on seamlessly handle the provisioning of the database, it will automatically add the necessary database credentials as Heroku environment variables.  
+
+Navigate to the settings tab on your  heroku app, and click the "Reveal Congfig Vars Section"
+
+That should give you something like this: ![heroku_env_vars](./screenshots/heroku_envionment_variables.png)
+
+Your postgres information should have already been populated with the addon. You should also set values for the two other variables `SECRET_KEY` and `DJANGO_SETTINGS_MODULE`. Just like we set `DJANGO_SETTING_MOUDLE` to `django_postgres_tutorial.settings.dev` in our local environment, we do the same thing here with `django_postgres_tutorial.prod`. 
+Heroku config vars are a good way to cleanly store sensitive, environment specific, variables. The accessing and usage of these environments variables is stated in our production setting file `django_postgres_tutorial/settomgs/prod.py`. Set a secret and you should be good to go!!
+
+Now let's manually deploy our app in production see it works with our environment variables and production settings! 
+
+Navigate to the "deploy" tab on your app, scroll down to "manual deploy" and click "deploy branch" ![heroku_manually_deply](./screenshots/heroku_manual_deploy.png)
 
 ##### Notes and Other Resources
 
@@ -101,13 +123,23 @@ That's because Heroku has different requirements for running a django applicatio
 * [How Heroku Works](https://devcenter.heroku.com/articles/how-heroku-works)
 * [Gunicorn](https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/gunicorn/)
 * [Web Server vs. Application](https://www.javaworld.com/article/2077354/learn-java/app-server-web-server-what-s-the-difference.html)
+* [Python Versioning and Runtimes in Heroku](https://devcenter.heroku.com/articles/python-runtimes)
+* [Django Secret Key Generator](https://www.miniwebtool.com/django-secret-key-generator/)
 
+
+### Connect Travis Testing Integration
+
+Travis Continuous Integration is a helpful 3rd party service that tests your code before it goes to your production environment. Just as we can our tests locally with `python manage.py test api`, travis gives us a way to do that automatically every time code is pushed to master. Travis runs whatever tests we tell it to, and if our new changes fail to pass our tests, Travis will stop our changes from making it into production. 
+
+
+1. Create a Travis Account (I do mine through Github) and link with Github ![activate_travis](./screenshots/link_travis.png)
+2. Link the repositories you care about. Depending on how your Github account is configured, this interface might either be on Github or Travis. ![travis_link_repo](./screenshots/link_travis.png) No matter what, find your forked repo and give Travis access. 
 
 ### What Now?
 
-Now that we are deployed, what should we do from here?
+Now that we are deployed and have continuous testing setup, what should we do from here?
 
-#### Aceess Your Production Server
+#### Access Your Production Server
 
 Just like you can run commands locally, you can run commands on you deployed heroku server... Just be careful..
 
@@ -115,13 +147,14 @@ If you don't already have the heroku toolbelt, download it from [here](https://d
 
 Once installed, gain access with:
 1. `heroku login`  
-    * ![herok_login](./screenshots/heroku_login.png)
+    * ![heroku_login](./screenshots/heroku_login.png)
 2. Set the heroku remote with `heroku git:remote -a jcdjangopostgres`
 3. Now you run any command on your deployed server with `heroku run < your command here >`
     * eg. `heroku run ls` (It's the same ls command we all know and love)
+4. You can look at the production server logs with `heroku log`
 
-4. Migrate the database! `heroku run python manage.py migrate`
-    * ![herou_migrate](./screenshots/heroku_migrate.png)
+4. Let's migrate the production database we connnected! `heroku run python manage.py migrate`
+    * ![heroku_migrate](./screenshots/heroku_migrate.png)
        
 5. Load your sample data with `heroku run python manage.py loaddata data.json`. Similar to local development, this populates your production database with dummy data. 
 
@@ -131,21 +164,24 @@ One off commands might be useful enough, but what if you want a persistent ssh s
 
 Just use the heroku command `heroku ps:exec` which will allow you to get a shell session on your heroku dyno. 
 
-![heroku_ssh](./screenshots/herkou_ssh.png)
+![heroku_ssh](./screenshots/heroku_ssh.png)
 
 #### Hit the Production API
 
-Make sure you've everything correctly by hitting the proudction api route, [https://jcdjangopostgres.herokuapp.com/api/sleds/](https://jcdjangopostgres.herokuapp.com/api/sleds/) and making sure your dummy list of sleds gets returned. Hopefully it works!
+Make sure you've done everything correctly by hitting the production api route, [https://jcdjangopostgres.herokuapp.com/api/sleds/](https://jcdjangopostgres.herokuapp.com/api/sleds/) and see if your list sleds gets returned. Hopefully it works!
 
 #### Examine the Production Database
 
-Maybe you're curious about the production postgres database that we connected. Since we installed postgres as a heroku addon, one way to examine the database is through their their website. Most of the really nice features (eg. automatic backups of the database) aren't for free accounts, but you can still see what options are presented. 
+Maybe you're curious about the production postgres database that we connected. Since we installed postgres as a heroku addon, one way to examine the database is through their website. Most of the really nice features (eg. automatic backups of the database) aren't for free accounts, but you can still see what options are presented by clicking on the '
+Heroku Postgres :: Database' add-on we added earlier. Clicking through will take you to the database interface.
 
-![heroku_postgres_interface](.screenshots/heroku_postgres_interface.png)
+![heroku_postgres_addon](./screenshots/heroku_connect_postgres.png)
+![heroku_postgres_interface](./screenshots/heroku_postgres_interface.png)
 
+What, if for whatever reason, you want a raw postgres shell on your production database, similar to how we used a shell with our local postgres database. We can enter a similar shell on our remote, production database with  `heroku pg:psql`
 
 #### Notes and Resources 
 
-* [Heroku Postgres Basics](https://devcenter.heroku.com/categories/postgres-basics)
-
+* [Basics for Postgres on Heroku](https://devcenter.heroku.com/categories/postgres-basics)
+* [Using the Heroku Postgres CLI](https://devcenter.heroku.com/articles/heroku-postgresql#using-the-cli)
 
