@@ -68,6 +68,7 @@ At this point, it might be worth clarifying Django's relationship with the postg
 
 Now we can start the server, but how do we know if it's in good shape? In `/api/tests/tests.py` we've defined a couple tests that our api should pass for correct functionality. We can make sure those currently pass by running them locally `python manage.py test api`. 
 Before we can do that though, we need to enter the psql prompt again `psql jumbocode` and give our user access to create a temporary runtime database for testing with `=> ALTER USER django CREATEDB;`. This means that our tests won't affect our local database.
+
 ### Let's Move to Production!
 
 Now that we've established that our simple api is working properly in a local environment, let's put it on some production machines.  
@@ -137,6 +138,19 @@ We've confirmed that our production environment is up and running in some capaci
 
 1. Create a Travis Account (I do mine through Github) and link with Github ![activate_travis](./screenshots/link_travis.png)
 2. Link the repositories you care about. Depending on how your Github account is configured, this interface might either be on Github or Travis. ![travis_link_repo](./screenshots/link_travis.png) No matter what, find your forked repo and give Travis access. 
+3. On the heroku app, check the box that link up continuous integration.[heroku_travis_link](./screenshots/travis_link_repo.png)
+
+Manually deploy the application again, and if everything worked, you should see passing tests in your travis build and a successful deploy to heroku.
+Travis needs 2 files to run properly in this architecture: 
+ 
+1. A `.travis.yml` file that specifies how you want travis to build and test your application. This file contains things like python versions to run in and build instructions.
+2. A `django_postgres_example.settings.travis` file that species the django settings for Travis. This largely is just the database connection information that travis needs. 
+
+[successful_travis_build](./screenshots/travis_build_passing.png)
+
+
+##### Notes and Resources
+* [Beginner Continuous Integration Concepts](https://docs.travis-ci.com/user/for-beginners/) 
 
 ### What Now?
 
