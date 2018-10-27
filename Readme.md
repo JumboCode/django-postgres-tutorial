@@ -28,6 +28,7 @@ A point can be made that once a production database is established, it's easier 
 6. Once in the interface, create a new database named djangotutorial with the command `CREATE DATABASE djangotutorial;` If creating the database succeeds, you will see the response `CREATE DATABASE`. This will be the database that our django application will connect and write to for local development. 
 7. For anyone to connect and access the database we created, they need a valid postgres username and password combination. This means that we need to create a dedicated user for django to interact with our new database. We create it with  `CREATE USER djangotutorial WITH PASSWORD 'supersecret';` 
 8. Our new postgres user needs explicit permission to have read and write capabilities on our newly created database. We can do that with the command `GRANT ALL PRIVILEGES ON DATABASE "jumbocode" to djangotutorial;` .  
+9. Exit out of postgres 
 
 This is all that's needed to set up local development for postgres. Now we need to let django know how to connect to the database during local development. We define this connection in the file `/django_postgres_example/settings/dev.py`.
  
@@ -61,7 +62,7 @@ If everything has gone according to plan, only 3 steps are need to needed to run
 
 1. Run `python manage.py makemigrations` to see how/if old data can be translated to a newer representation.
 2. Run `python manage.py migrate` actually translate the database to the most up to date representation
-3.  Run `python manage.py runserver` simply starts the server on localhost
+3. Run `python manage.py runserver` simply starts the server on localhost
 
 Anytime there are changes to `models.py`, running steps 1-3 will try to seemlessly translate those changes to your connected database. 
 
