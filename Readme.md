@@ -119,4 +119,8 @@ Once installed, gain access with:
     * eg. `heroku run ls` (It's the same ls command we all know and love)
 
 4. Migrate the database! `heroku run python manage.py migrate`
-5. Load your sample data, `heroku run loaddata data.json`
+5. Load your sample data, `heroku run loaddata data.json`.
+
+#### Hit the Production API
+
+Make sure you've everything correctly by hiting the proudction route `/` and making sure a list of sleds gets returned. 

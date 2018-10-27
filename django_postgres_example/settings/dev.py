@@ -24,9 +24,9 @@ STATIC_URL = '/static/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'switch_dev',
-        'USER': 'dev',
-        'PASSWORD': '',
+        'NAME': 'jumbocode',
+        'USER': 'djangotutorial',
+        'PASSWORD': 'supersecret',
         'HOST': 'localhost',
         'PORT': ''
     }

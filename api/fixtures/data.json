@@ -1,1 +1,95 @@
-{}
+[
+{
+  "model": "api.sled",
+  "pk": 1,
+  "fields": {
+    "name": "Jumboss",
+    "victories": 0,
+    "defeats": 0
+  }
+},
+{
+  "model": "api.sled",
+  "pk": 2,
+  "fields": {
+    "name": "Jumbolinas",
+    "victories": 0,
+    "defeats": 0
+  }
+},
+{
+  "model": "api.sled",
+  "pk": 3,
+  "fields": {
+    "name": "Mt. Monaco",
+    "victories": 0,
+    "defeats": 0
+  }
+},
+{
+  "model": "api.teammember",
+  "pk": 1,
+  "fields": {
+    "first_name": "Tony",
+    "last_name": "Monaco",
+    "phone_number": "43243243222",
+    "sled": 3,
+    "captain": true
+  }
+},
+{
+  "model": "api.teammember",
+  "pk": 2,
+  "fields": {
+    "first_name": "Rick",
+    "last_name": "Wilson",
+    "phone_number": "30123213123",
+    "sled": 1,
+    "captain": false
+  }
+},
+{
+  "model": "api.teammember",
+  "pk": 3,
+  "fields": {
+    "first_name": "Sideshow",
+    "last_name": "Bob",
+    "phone_number": "122312311323",
+    "sled": 2,
+    "captain": false
+  }
+},
+{
+  "model": "api.teammember",
+  "pk": 4,
+  "fields": {
+    "first_name": "Derek",
+    "last_name": "Rose",
+    "phone_number": "3432234234",
+    "sled": 1,
+    "captain": false
+  }
+},
+{
+  "model": "api.teammember",
+  "pk": 5,
+  "fields": {
+    "first_name": "Michael",
+    "last_name": "Jordan",
+    "phone_number": "434324344",
+    "sled": 2,
+    "captain": false
+  }
+},
+{
+  "model": "api.teammember",
+  "pk": 6,
+  "fields": {
+    "first_name": "John",
+    "last_name": "Belushi",
+    "phone_number": "434505611554",
+    "sled": 2,
+    "captain": true
+  }
+}
+]
