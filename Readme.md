@@ -75,6 +75,8 @@ At this point, it might be worth clarifying Django's relationship with the postg
 Now we can start the server, but how do we know if it's in good shape? In `/api/tests/tests.py` we've defined a couple tests that our api should pass for correct functionality. We can make sure those currently pass by running them locally `python manage.py test api`. 
 Before we can do that though, we need to enter the psql prompt again `psql djangotutorial` and give our user access to create a temporary runtime database for testing with `=> ALTER USER django CREATEDB;`. This means that our tests won't affect our local database.
 
+Test the route [http://localhost:8000/api/sleds/]([http://localhost:8000/api/sleds/]) to make sure it works too!
+
 ### Let's Move to Production!
 
 Now that we've established that our simple api is working properly in a local environment, let's put it on some production machines.  
