@@ -8,7 +8,7 @@ Assumes you have python3...
 
 1. Fork the repo on github to get a copy of the respository, and then cloned that newly forked repo with `git clone`
 2. Create a virtual environment with the  `python -m venv .venv` .This will a sandboxed environment called "venv" that helps with controlling dependencies.
-3. Activate the environment with `source env/bin/activate`
+3. Activate the environment with `source .venv/bin/activate`
 4. Install all the application's dependencies (while in the activated virtual environment) with `pip install -r requirements.txt`.
 
 ### Database
