@@ -1,5 +1,5 @@
 #
-#   These are the settings for a Travis Integrating Testing Environmentp
+#   These are the settings for a Travis Integrating Testing Environments
 #
 
 from .common import *

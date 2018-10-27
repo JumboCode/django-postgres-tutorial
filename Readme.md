@@ -115,6 +115,11 @@ Now let's manually deploy our app in production see it works with our environmen
 
 Navigate to the "deploy" tab on your app, scroll down to "manual deploy" and click "deploy branch" ![heroku_manually_deply](./screenshots/heroku_manual_deploy.png)
 
+
+##### Hit the Production API
+
+Make sure you've done everything correctly by hitting the production api route, [https://jcdjangopostgres.herokuapp.com/api/sleds/](https://jcdjangopostgres.herokuapp.com/api/sleds/) and see if your list sleds gets returned. Hopefully it works!
+
 ##### Notes and Other Resources
 
 * https://devcenter.heroku.com/articles/django-app-configuration
@@ -129,7 +134,7 @@ Navigate to the "deploy" tab on your app, scroll down to "manual deploy" and cli
 
 ### Connect Travis Testing Integration
 
-Travis Continuous Integration is a helpful 3rd party service that tests your code before it goes to your production environment. Just as we can our tests locally with `python manage.py test api`, travis gives us a way to do that automatically every time code is pushed to master. Travis runs whatever tests we tell it to, and if our new changes fail to pass our tests, Travis will stop our changes from making it into production. 
+We've confirmed that our production environment is up and running in some capacity. But how do we make sure it's kept clean and without bugs? Travis Continuous Integration is a helpful 3rd party service that tests your code before it goes to your production environment. Just as we can our tests locally with `python manage.py test api`, travis gives us a way to do that automatically every time code is pushed to master. Travis runs whatever tests we tell it to, and if our new changes fail to pass our tests, Travis will stop our changes from making it into production. 
 
 
 1. Create a Travis Account (I do mine through Github) and link with Github ![activate_travis](./screenshots/link_travis.png)
@@ -166,9 +171,6 @@ Just use the heroku command `heroku ps:exec` which will allow you to get a shell
 
 ![heroku_ssh](./screenshots/heroku_ssh.png)
 
-#### Hit the Production API
-
-Make sure you've done everything correctly by hitting the production api route, [https://jcdjangopostgres.herokuapp.com/api/sleds/](https://jcdjangopostgres.herokuapp.com/api/sleds/) and see if your list sleds gets returned. Hopefully it works!
 
 #### Examine the Production Database
 
