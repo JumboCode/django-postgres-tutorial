@@ -101,3 +101,19 @@ That's because Heroku has different requirements for running a django applicatio
 * [How Heroku Works](https://devcenter.heroku.com/articles/how-heroku-works)
 * [Gunicorn](https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/gunicorn/)
 * [Web Server vs. Application](https://www.javaworld.com/article/2077354/learn-java/app-server-web-server-what-s-the-difference.html)
+
+
+### What Now?
+
+Now that we are deployed, what should we do from here?
+
+#### Aceess Your Production Server
+
+Well first. You can run commands on you deployed heroku server.
+If you don't already have the heroku toolbelt, download it from [here](https://devcenter.heroku.com/categories/command-line).
+
+Once installed, gain access with:
+1. `heroku login`
+2. Set the remote with `heroku git:remote -a jcdjangopostgres
+3. Now you run any command on your deployed server with `heroku run < your command here >`
+    * eg. `heroku run ls` (It's the same ls command we all know and love)
