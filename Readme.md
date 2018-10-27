@@ -86,7 +86,7 @@ If github permissions are configured properly, you should be able to easily find
 
 #### Connect Database and Set Production Environment 
 
-If we try to manually deploy though (we don't have code to commit yet), we run into issues. 
+If we try to manually deploy though, we run into issues. 
 
 That's because Heroku has different requirements for running a django application in their environment. In order for Django to play nicely in a heroku, production environment you need.
 
