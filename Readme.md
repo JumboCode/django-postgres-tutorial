@@ -62,14 +62,12 @@ Anytime there are changes to `models.py`, running steps 1-3 will try to seemless
 
 At this point, it might be worth clarifying Django's relationship with the postgress database. Basically django sits as a middleware translator between your python code in models.py and the raw, postgres queries that actually do the barebones work. Similar to how we created a user and a database with the postgres prompt, you can also create other datastructures and relationships with postgres queries. What django does is simply package that same functionality into cleaner "model" python code.
 
-Your Code in 
-Models.py ------> Django's ObjectRelatedMapper ---> Generated Postgres Queries/Statements --->  The Raw Data and Schema.
+##### Your Code in Models.py ------> Django's ObjectRelatedMapper ---> Generated Postgres Queries/Statements --->  The Raw Data and Schema.
 
 #### Test API Locally
 
 Now we can start the server, but how do we know if it's in good shape? In `/api/tests/tests.py` we've defined a couple tests that our api should pass for correct functionality. We can make sure those currently pass by running them locally `python manage.py test api`. 
-
-
+Before we can do that though, we need to enter the psql prompt again `psql jumbocode` and give our user access to create a temporary runtime database for testing with `=> ALTER USER django CREATEDB;`. This means that our tests won't affect our local database.
 ### Let's Move to Production!
 
 Now that we've established that our simple api is working properly in a local environment, let's put it on some production machines.  
