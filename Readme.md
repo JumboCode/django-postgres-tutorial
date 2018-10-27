@@ -27,7 +27,7 @@ A point can be made that once a production database is established, it's easier 
 5. Make sure that everything is working properly by entering postgres's command line interface with `psql postgres`. You should see you enter a shell that looks like `postgres=#`.
 6. Once in the interface, create a new database named djangotutorial with the command `CREATE DATABASE djangotutorial;` If creating the database succeeds, you will see the response `CREATE DATABASE`. This will be the database that our django application will connect and write to for local development. 
 7. For anyone to connect and access the database we created, they need a valid postgres username and password combination. This means that we need to create a dedicated user for django to interact with our new database. We create it with  `CREATE USER djangotutorial WITH PASSWORD 'supersecret';` 
-8. Our new postgres user needs explicit permission to have read and write capabilities on our newly created database. We can do that with the command `GRANT ALL PRIVILEGES ON DATABASE "jumbocode" to djangotutorial;` .  
+8. Our new postgres user needs explicit permission to have read and write capabilities on our newly created database. We can do that with the command `GRANT ALL PRIVILEGES ON DATABASE "djangotutorial" to djangotutorial;` .  
 9. Exit out of postgres 
 
 This is all that's needed to set up local development for postgres. Now we need to let django know how to connect to the database during local development. We define this connection in the file `/django_postgres_example/settings/dev.py`.
@@ -73,7 +73,7 @@ At this point, it might be worth clarifying Django's relationship with the postg
 #### Test API Locally
 
 Now we can start the server, but how do we know if it's in good shape? In `/api/tests/tests.py` we've defined a couple tests that our api should pass for correct functionality. We can make sure those currently pass by running them locally `python manage.py test api`. 
-Before we can do that though, we need to enter the psql prompt again `psql jumbocode` and give our user access to create a temporary runtime database for testing with `=> ALTER USER django CREATEDB;`. This means that our tests won't affect our local database.
+Before we can do that though, we need to enter the psql prompt again `psql djangotutorial` and give our user access to create a temporary runtime database for testing with `=> ALTER USER django CREATEDB;`. This means that our tests won't affect our local database.
 
 ### Let's Move to Production!
 
