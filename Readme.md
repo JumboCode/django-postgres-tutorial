@@ -60,7 +60,7 @@ If everything has gone according to plan, only 3 steps are need to needed to run
 
 Anytime there are changes to `models.py`, running steps 1-3 will try to seemlessly translate those changes to your connected database. 
 
-At this point, it might be worth clarfiying Django's relationship with the postgress database. Basically django sits as a middleware translator between your python code in models.py and the raw, postgres queries that actually do the barebones work. Similar to how we created a user and a database with the postgres prompt, you can also create other datastructures and relationships with postgres queries. What django does is simply package that same functionality into cleaner "model" python code.
+At this point, it might be worth clarifying Django's relationship with the postgress database. Basically django sits as a middleware translator between your python code in models.py and the raw, postgres queries that actually do the barebones work. Similar to how we created a user and a database with the postgres prompt, you can also create other datastructures and relationships with postgres queries. What django does is simply package that same functionality into cleaner "model" python code.
 Your Code in 
 Models.py ------> Django's ObjectRelatedMapper ---> Generated Postgres Queries/Statements --->  The Raw Data and Schema.
 
@@ -109,18 +109,43 @@ Now that we are deployed, what should we do from here?
 
 #### Aceess Your Production Server
 
-Well first. You can run commands on you deployed heroku server.
+Just like you can run commands locally, you can run commands on you deployed heroku server... Just be careful..
+
 If you don't already have the heroku toolbelt, download it from [here](https://devcenter.heroku.com/categories/command-line).
 
 Once installed, gain access with:
-1. `heroku login`
-2. Set the remote with `heroku git:remote -a jcdjangopostgres
+1. `heroku login`  
+    * ![herok_login](./screenshots/heroku_login.png)
+2. Set the heroku remote with `heroku git:remote -a jcdjangopostgres`
 3. Now you run any command on your deployed server with `heroku run < your command here >`
     * eg. `heroku run ls` (It's the same ls command we all know and love)
 
 4. Migrate the database! `heroku run python manage.py migrate`
-5. Load your sample data, `heroku run loaddata data.json`.
+    * ![herou_migrate](./screenshots/heroku_migrate.png)
+       
+5. Load your sample data with `heroku run python manage.py loaddata data.json`. Similar to local development, this populates your production database with dummy data. 
+
+##### Want to SSH in? 
+
+One off commands might be useful enough, but what if you want a persistent ssh session? 
+
+Just use the heroku command `heroku ps:exec` which will allow you to get a shell session on your heroku dyno. 
+
+![heroku_ssh](./screenshots/herkou_ssh.png)
 
 #### Hit the Production API
 
-Make sure you've everything correctly by hiting the proudction route `/` and making sure a list of sleds gets returned. 
+Make sure you've everything correctly by hitting the proudction api route, [https://jcdjangopostgres.herokuapp.com/api/sleds/](https://jcdjangopostgres.herokuapp.com/api/sleds/) and making sure your dummy list of sleds gets returned. Hopefully it works!
+
+#### Examine the Production Database
+
+Maybe you're curious about the production postgres database that we connected. Since we installed postgres as a heroku addon, one way to examine the database is through their their website. Most of the really nice features (eg. automatic backups of the database) aren't for free accounts, but you can still see what options are presented. 
+
+![heroku_postgres_interface](.screenshots/heroku_postgres_interface.png)
+
+
+#### Notes and Resources 
+
+* [Heroku Postgres Basics](https://devcenter.heroku.com/categories/postgres-basics)
+
+
