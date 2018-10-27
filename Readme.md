@@ -91,7 +91,7 @@ That's because Heroku has different requirements for running a django applicatio
 1. A python buildpack installed. This tells heroku that we are building a python application so it knows to look for certain files like 'requirements.txt'
 2. A Procfile, which tells heroku what command to run your application.
     * Our procfile is the line `web: gunicorn django_postgres_example.wsgi` The `web:` tells heroku it's a web application. The web application is served by the webserver (the thing that actually runs your application) package `gunicorn` and gunicorn looks for our applications `.wsgi` file
-3. A `runtime.txt` file that specifies the python version we want to use.
+3. A `runtime.txt` file that specifies the python version we want to use in production.
 
 ##### Notes and Other Resources
 
