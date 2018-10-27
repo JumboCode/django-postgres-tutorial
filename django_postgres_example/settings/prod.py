@@ -10,7 +10,7 @@ import dj_database_url
 # We don't want any debug warnings giving
 # away unnecessary information to attackers
 
-DEBUG=True
+DEBUG=False
 
 # We grab the secret key from the environment because it is
 # our production key and no can know it
