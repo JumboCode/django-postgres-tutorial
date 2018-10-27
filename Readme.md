@@ -38,7 +38,7 @@ The last thing then we need to do, is set an environment variable that lets djan
 * [Optimizing Postgres Configuration](https://docs.djangoproject.com/en/2.1/ref/databases/#optimizing-postgresql-s-configuration)
 * [The Library that drives the connection between django to postgres](http://initd.org/psycopg/docs/install.html)
 * [Good Overview of Relational Database Fundamental Concepts](https://www.postgresql.org/docs/8.4/static/tutorial-concepts.html)
-* [How to Create a Data Schema in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-table.html)__
+* [How to Create a Data Schema in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-table.html)
 * [How to insert new data in raw sql](https://www.postgresql.org/docs/8.4/static/tutorial-populate.html)
 
 
@@ -48,7 +48,7 @@ The local development environment is only of many different environments that yo
 
 * `settings/dev.py` specifies your application settings for a local development environment. 
 * `settings/prod.py` specifies your application settings for a production environment (the service your real users will using) 
-* `settings/travis.py` specifies your application settings from runnning in Travis CI, a 3rd party testing utility that is talked about later on in the tutorial. 
+* `settings/travis.py` specifies your application settings from runnnning in Travis CI, a 3rd party testing utility that is talked about later on in the tutorial. 
 
 Different environments might share some common settings so we include them with `settings/common.py`, but they also might have different characteristics. Ie. The database settings are different / security consdierations being less of a factor for local development. 
 
