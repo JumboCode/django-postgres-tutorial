@@ -2,7 +2,7 @@
 
 This django-tutorial respository aims to provide a nice template for developing a django-based API that feeds into a postgress database. After looking at the code and reading the walkthrough tutorial, hopefully you will feel more comfortable with running a django application in a variety of environments, in an integrated pipeline. 
 ### Virtual Environment 
-1. Fork the repo with `git clone`
+1. Fork the repo on github to get a copy of the respository, and then cloned that newly forked repo with `git clone`
 2. Create a virtual environment with the  `python -m venv .venv` .This will a sandboxed environment called "venv" that helps with controlling dependencies.
 3. Activate the environment with `source env/bin/activate`
 4. Install all the application's dependencies (while in the activated virtual environment) with `pip install -r requirements.txt`.
@@ -117,3 +117,6 @@ Once installed, gain access with:
 2. Set the remote with `heroku git:remote -a jcdjangopostgres
 3. Now you run any command on your deployed server with `heroku run < your command here >`
     * eg. `heroku run ls` (It's the same ls command we all know and love)
+
+4. Migrate the database! `heroku run python manage.py migrate`
+5. Load your sample data, `heroku run loaddata data.json`
