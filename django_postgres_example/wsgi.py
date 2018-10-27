@@ -7,6 +7,8 @@ For more information on this file, see
 https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 """
 
+# TEn is cool i gueess
+
 import os
 
 from django.core.wsgi import get_wsgi_application
