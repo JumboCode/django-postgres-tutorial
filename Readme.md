@@ -84,14 +84,20 @@ Then, link the repository, so that every push to your master branch on github de
 
 #### Connect Database and Set Production Environment 
 
-If we try to manually deploy though (we don't have code to commit yet), we run into issues. That's because Heroku has different requirements for running a django application in their environment. In order for Django to play nicely on heroku you need.
+If we try to manually deploy though (we don't have code to commit yet), we run into issues. 
+
+That's because Heroku has different requirements for running a django application in their environment. In order for Django to play nicely on heroku you need.
 
 1. A python buildpack installed. This tells heroku that we are building a python application so it knows to look for certain files like 'requirements.txt'
-
-
-2. A Procfile, which tells heroku 
+2. A Procfile, which tells heroku what command to run your application.
+    * Our procfile is the line `web: gunicorn django_postgres_example.wsgi` The `web:` tells heroku it's a web application. The web application is served by the webserver (the thing that actually runs your application) package `gunicorn` and gunicorn looks for our applications `.wsgi` file
+3. A `runtime.txt` file that specifies the python version we want to use.
 
 ##### Notes and Other Resources
 
 * https://devcenter.heroku.com/articles/django-app-configuration
 * https://devcenter.heroku.com/articles/python-concurrency-and-database-connections
+* [Procfiles](https://devcenter.heroku.com/articles/procfile)
+* [How Heroku Works](https://devcenter.heroku.com/articles/how-heroku-works)
+* [Gunicorn](https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/gunicorn/)
+* [Web Server vs. Application](https://www.javaworld.com/article/2077354/learn-java/app-server-web-server-what-s-the-difference.html)
